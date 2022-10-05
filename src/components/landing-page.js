@@ -5,7 +5,7 @@ import "./style.css";
 import LandingImage from "../assets/Landing-page-image.svg";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
-
+import landingBg from "../assets/landing-bg.png";
 export default function LandingPage() {
   const history = useNavigate();
   const handleClick = () => {
@@ -31,12 +31,15 @@ export default function LandingPage() {
             order={{ xs: 2, sm: 2, md: 1 }}
           >
             <Grid container justifyContent="center" alignItems="center">
-              <Box sx={{ p: 4 }}>
-                <img
-                  src={LandingImage}
-                  alt={"Landing..."}
-                  style={{ maxWidth: "300px" }}
-                />
+              <Box sx={{ p: 2 }}>
+                <Grid container justifyContent="center" alignItems="center">
+                  {" "}
+                  <img
+                    src={landingBg}
+                    alt={"Landing..."}
+                    style={{ maxWidth: "70%" }}
+                  />
+                </Grid>
               </Box>
               <Grid
                 container

@@ -1,6 +1,12 @@
 .LandingPage {
   height: "100%";
-  background-color: #ede5ff;
+  background: rgb(117, 124, 166);
+  background: linear-gradient(
+    45deg,
+    rgba(117, 124, 166, 1) 0%,
+    rgba(241, 164, 205, 1) 66%,
+    rgba(244, 141, 196, 1) 99%
+  );
 }
 .LandingPage-Heading {
   font-family: "Helvetica";
@@ -13,7 +19,7 @@
   color: #240d57;
 }
 .Responsive-Height {
-  height: 100vh;
+  height: 95vh;
   padding: 5px;
 }
 .LandingPage-Subheading {
@@ -78,6 +84,18 @@
   transform: translate(-50%, -50%);
 
   font-size: 48px;
+}
+/* ------------------------App Bar-------------- */
+.Login-button {
+  width: 200px;
+  height: 40px;
+
+  background: linear-gradient(
+    45deg,
+    rgba(117, 124, 166, 1) 30%,
+    rgba(241, 164, 205, 1) 66%
+  );
+  border-radius: 20px;
 }
 /* ------------------------Create page-------------- */
 
