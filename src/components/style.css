@@ -1,0 +1,173 @@
+.LandingPage {
+  height: "100%";
+  background-color: #ede5ff;
+}
+.LandingPage-Heading {
+  font-family: "Helvetica";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 64px;
+  /* or 100% */
+  text-align: right;
+  color: #240d57;
+}
+.Responsive-Height {
+  height: 100vh;
+  padding: 5px;
+}
+.LandingPage-Subheading {
+  font-family: "Helvetica";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: right;
+
+  color: #4f4f4f;
+}
+
+.LandingPage-snapchat {
+  font-family: "Helvetica";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 74px;
+  text-align: right;
+  background: linear-gradient(90deg, #8456ec 24.2%, #e87bf8 120.46%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.LandingPage-button {
+  width: 320px;
+  height: 55px;
+
+  background: linear-gradient(90deg, #8456ec 3.25%, #e87bf8 100%);
+  border-radius: 10px;
+}
+.Birthday-Bash {
+  font-family: "Helvetica";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 55px;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  color: #240d57;
+}
+.Birthday-Bash-secondary {
+  font-family: "Helvetica";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+
+  margin: 0;
+  color: #828282;
+}
+.BirthdayCakeImg {
+  max-width: 500px;
+}
+.add-photo {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 48px;
+}
+/* ------------------------Create page-------------- */
+
+.create-header {
+  font-family: "Helvetica";
+  font-style: normal;
+  font-size: 3rem;
+  text-align: left;
+  color: #240d57;
+  font-weight: 500;
+}
+.cancel-btn {
+  color: gray;
+}
+.cancel-btn:hover {
+  color: #240d57;
+}
+.create-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #240d57;
+}
+.create-span {
+  font-size: 18px;
+  font-weight: 500;
+  color: gray;
+}
+.create-textfield {
+  font-family: "Helvetica";
+  font-style: normal;
+  padding: 10px;
+  background-color: transparent;
+  border: 0px solid;
+  height: 40px;
+  width: 98%;
+  border-radius: 10px;
+  border-color: rgb(236, 236, 236);
+  background-color: rgb(236, 236, 236);
+  font-size: 1.5rem;
+  color: gray;
+}
+.create-textfield:hover,
+:focus {
+  outline: none;
+  background-color: #ede5ff;
+}
+/* Hide Calendar Icon In Chrome */
+input[type="datetime-local"]::-webkit-inner-spin-button,
+input[type="datetime-local"] {
+  position: relative;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  /* display: none;
+  -webkit-appearance: none; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+@media only screen and (max-width: 900px) {
+  .LandingPage-Heading {
+    text-align: center;
+  }
+  .hide-on-small {
+    display: none !important;
+  }
+  .BirthdayCakeImg {
+    max-width: 400px;
+  }
+  .Responsive-Height {
+    height: 100%;
+  }
+  .LandingPage-Subheading {
+    text-align: center;
+  }
+  .create-header {
+    text-align: center;
+  }
+}
+@media only screen and (min-width: 900px) {
+  .hide-on-large {
+    display: none !important;
+  }
+  .create-header {
+    text-align: left;
+  }
+}
