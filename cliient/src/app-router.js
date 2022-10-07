@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import BrowseImage from "./components/browse-img";
 import CreatePage from "./components/create-page";
 import EventPage from "./components/event-page";
 import LandingPage from "./components/landing-page";
@@ -11,5 +12,6 @@ export const AppRouter = () => (
     <Route path="/create" element={<CreatePage />} />
     <Route path="/event" element={<EventPage />} />
     <Route path="/signUP" element={<SignUpPage />} />
+    <Route path="/browse" element={<BrowseImage />} />
   </Routes>
 );

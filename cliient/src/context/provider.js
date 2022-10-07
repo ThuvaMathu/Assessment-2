@@ -5,10 +5,13 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
+  const [selectImage, setSelectImage] = useState();
 
   return (
     <AppContext.Provider
       value={{
+        selectImage,
+        setSelectImage,
         open,
         setOpen,
         value,

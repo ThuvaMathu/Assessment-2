@@ -3,28 +3,27 @@ const FINNHUB_API_KEY = process.env.FINNHUB_API_KEY;
 const FMP_API_KEY = process.env.FMP_API_KEY;
 const RAPID_API_KEY = process.env.RAPID_API_KEY;
 
-const getNews = async (req, res, next) => {
-  const bdata = req.body;
+const getImages = async (req, res, next) => {
+  const bdata = req.body.reqData;
   const options = {
     method: "GET",
-    url: "https://free-news.p.rapidapi.com/v1/search",
-    params: { q: bdata.symbol, lang: "en" },
+    url: "https://pexelsdimasv1.p.rapidapi.com/v1/search",
+    params: { query: bdata, locale: "en-US", per_page: "100", page: "1" },
     headers: {
-      //"X-RapidAPI-Key": "4f192eeccemsh43fef53656ace90p1fb5a8jsn5d4aa797ea54",
-      "X-RapidAPI-Key": RAPID_API_KEY,
-
-      "X-RapidAPI-Host": "free-news.p.rapidapi.com",
+      Authorization: "563492ad6f917000010000010bc59003765749af8c148450380a1309",
+      "X-RapidAPI-Key": "c2ad33e329msh5ae5eed64b2c321p1501edjsn57f7ac1ab1f1",
+      "X-RapidAPI-Host": "PexelsdimasV1.p.rapidapi.com",
     },
   };
+
   axios
     .request(options)
     .then(function (response) {
       res.json(response.data);
-      console.log("\u001b[1;32m  successfully sent NEWS response\u001b[0m");
+      console.log(response.data);
     })
     .catch(function (error) {
-      res.json({ status: 500 });
-      console.log("\u001b[1;31m Red Error sent NEWS response \u001b[0m");
+      console.error(error);
     });
 };
 
@@ -89,44 +88,7 @@ const getInfo = async (req, res) => {
     });
 };
 
-const getChart = async (req, res) => {
-  const bdata = req.body;
-  const options = {
-    method: "GET",
-    url: "https://chart-img.p.rapidapi.com/mini-chart",
-    params: {
-      symbol: bdata.symbol,
-      interval: bdata.period,
-      theme: "dark",
-      width: "800",
-      height: "400",
-      format: "jpeg",
-    },
-    headers: {
-      //"X-RapidAPI-Key": "c2ad33e329msh5ae5eed64b2c321p1501edjsn57f7ac1ab1f1",
-      //"X-RapidAPI-Key": "4f192eeccemsh43fef53656ace90p1fb5a8jsn5d4aa797ea54",
-      "X-RapidAPI-Key": RAPID_API_KEY,
-      "X-RapidAPI-Host": "chart-img.p.rapidapi.com",
-    },
-    responseType: "arraybuffer",
-  };
-  axios
-    .request(options)
-    .then(function (response) {
-      res.json(response.data);
-      console.log("\u001b[1;32m  successfully sent CHART response\u001b[0m");
-    })
-    .catch(function (error) {
-      res.json(error.response.data);
-      console.log(
-        "\u001b[1;31m Red Error sent CHART response \u001b[0m",
-        error
-      );
-    });
-};
-
-module.exports.getNews = getNews;
+module.exports.getImages = getImages;
 module.exports.getSymbol = getSymbol;
 module.exports.getInfo = getInfo;
 module.exports.getPrice = getPrice;
-module.exports.getChart = getChart;

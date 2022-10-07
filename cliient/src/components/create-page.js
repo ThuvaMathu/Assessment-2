@@ -5,19 +5,30 @@ import "./style.css";
 import img from "../assets/Birthday-cake.png";
 import { useNavigate } from "react-router-dom";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import CollectionsIcon from "@mui/icons-material/Collections";
+import LanguageIcon from "@mui/icons-material/Language";
+import Backdrop from "@mui/material/Backdrop";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import ImageSelector from "./image-selector";
+import { useProvider } from "../context/provider";
+import { Container } from "@mui/system";
 export default function CreatePage() {
+  const { selectImage, setSelectImage } = useProvider();
   const [startDate, setStartDate] = useState("");
+  const [open, setOpen] = useState(false);
   const [endDate, setEndDate] = useState();
   const [location, setLocation] = useState();
-  const [eImage, setImage] = useState(null);
   const [eventName, setEventName] = useState();
   const history = useNavigate();
+  const handleClose = () => setOpen(false);
+
   const handleClick = () => {
     history("/event", {
       state: {
         id: 1,
         name: eventName,
-        eventImage: eImage,
+        eventImage: selectImage,
         eventStartDate: startDate,
         eventEndDate: endDate,
         eventLocation: location,
@@ -25,7 +36,7 @@ export default function CreatePage() {
     });
   };
   function onImageChange(event) {
-    setImage(URL.createObjectURL(event.target.files[0]));
+    setSelectImage(URL.createObjectURL(event.target.files[0]));
   }
   return (
     <Box className="createPage">
@@ -187,39 +198,139 @@ export default function CreatePage() {
                 justifyContent="center"
                 alignItems="center"
                 height="100%"
-                style={{ position: "relative" }}
+                direction="column"
               >
-                <Box className="add-photo">
+                {/* <Box className="add-photo">
                   <IconButton
                     color="primary"
                     aria-label="upload picture"
                     component="label"
                     className="add-photo"
+                    onClick={() => {
+                      setOpen(true);
+                    }}
                   >
-                    <input
+                     <input
                       hidden
                       accept="image/*"
                       type="file"
                       onChange={onImageChange}
-                    />
+                    /> 
                     <AddAPhotoIcon
                       sx={{ fontSize: "100px", color: "aliceblue" }}
                     />
                   </IconButton>
-                </Box>
-
-                <Box sx={{ p: 4 }}>
+                </Box> */}
+                <Grid
+                  container
+                  justifyContent="center"
+                  alignItems="center"
+                  maxWidth="400px"
+                  maxHeight="400px"
+                  direction="row"
+                >
                   <img
-                    src={eImage == null ? img : eImage}
+                    src={selectImage == null ? img : selectImage}
                     alt={"Landing"}
-                    style={{ maxWidth: "100%" }}
+                    style={{ maxWidth: "80%" }}
                   />
+                </Grid>
+
+                <Grid
+                  container
+                  justifyContent="center"
+                  alignItems="center"
+                  direction="row"
+                >
+                  <Box sx={{ margin: 1 }}>
+                    <Button
+                      sx={{ paddingX: "30px" }}
+                      variant="contained"
+                      component="label"
+                      className="LoginOrSign-button"
+                    >
+                      <input
+                        hidden
+                        accept="image/*"
+                        type="file"
+                        onChange={onImageChange}
+                      />{" "}
+                      Upload{" "}
+                      <span style={{ marginLeft: "10px", marginTop: "5px" }}>
+                        <AddAPhotoIcon
+                          sx={{ fontSize: "25px", color: "aliceblue" }}
+                        />
+                      </span>
+                    </Button>
+                  </Box>
+                  <Box sx={{ margin: 1 }}>
+                    <Button
+                      sx={{ paddingX: "30px" }}
+                      variant="contained"
+                      component="label"
+                      className="LoginOrSign-button"
+                      onClick={() => history("/browse")}
+                    >
+                      Search web{" "}
+                      <span style={{ marginLeft: "10px", marginTop: "5px" }}>
+                        <LanguageIcon
+                          sx={{ fontSize: "25px", color: "aliceblue" }}
+                        />
+                      </span>
+                    </Button>
+                  </Box>
+                </Grid>
+
+                <Box sx={{ marginY: 1 }}>
+                  <Button
+                    sx={{ paddingX: "30px" }}
+                    variant="contained"
+                    component="label"
+                    className="LoginOrSign-button"
+                    onClick={() => setOpen(true)}
+                  >
+                    select Image{" "}
+                    <span style={{ marginLeft: "10px", marginTop: "5px" }}>
+                      <CollectionsIcon
+                        sx={{ fontSize: "25px", color: "aliceblue" }}
+                      />
+                    </span>
+                  </Button>
                 </Box>
               </Grid>
             </Grid>
           </Grid>
         </Box>
       </div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style} className="modal">
+            <ImageSelector handleClose={handleClose} />
+          </Box>
+        </Fade>
+      </Modal>
     </Box>
   );
 }
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  width: "60%",
+  maxHeight: "80%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  borderRadius: "10px",
+  boxShadow: 24,
+  p: 1,
+};

@@ -20,7 +20,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(express.static("./view"));
+//app.use(express.static("./view"));
+
 const apisRouter = require("./routes/api_routes");
 app.use("/api", apisRouter);
 if (process.env.SHOW_CONSOLE == "true") {

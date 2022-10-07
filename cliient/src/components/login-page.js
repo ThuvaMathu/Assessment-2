@@ -15,7 +15,6 @@ export default function LogiPage(props) {
   return (
     <div>
       <Box sx={{ flexGrow: 1, position: "relative" }}>
-        <h2>{props.handle}</h2>
         <Box>
           <img src={onlyLogo} alt="loin logo" className="loginLogo" />
         </Box>

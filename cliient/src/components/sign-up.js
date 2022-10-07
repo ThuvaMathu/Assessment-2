@@ -127,6 +127,15 @@ export default function SignUpPage() {
                 </Button>
               </Typography>
             </Box>
+            <Button
+              variant="text"
+              color="secondary"
+              onClick={() => {
+                history("/");
+              }}
+            >
+              <span style={{ fontWeight: "bold" }}>← Back</span>
+            </Button>
           </Grid>
         </Box>
       </Container>

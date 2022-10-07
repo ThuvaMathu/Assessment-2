@@ -8,6 +8,9 @@
     rgba(244, 141, 196, 1) 99%
   );
 }
+.common-box-shadow {
+  box-shadow: 3px 4px 18px -2px rgba(241, 164, 205, 0.75);
+}
 .LandingPage-Heading {
   font-family: "Helvetica";
   font-style: normal;
@@ -168,8 +171,34 @@ input[type="datetime-local"] {
   top: 0%;
   right: 5%;
 }
-/* ---------------------------------------------------- */
 
+.floating-x {
+  position: absolute;
+  height: 30px;
+  top: 0%;
+  right: 0%;
+}
+/* ---------------------------------------------------- */
+/* ------------------------img selector page-------------- */
+.img-container {
+  overflow-y: scroll;
+  max-height: 65vh;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.img-container::-webkit-scrollbar {
+  display: none;
+}
+.modal {
+  width: 86% !important;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.modal::-webkit-scrollbar {
+  display: none;
+}
+/* ---------------------------------------------------- */
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   /* display: none;
   -webkit-appearance: none; */
@@ -182,6 +211,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   height: auto;
   color: transparent;
   background: transparent;
+}
+.image-size {
+  width: 220px;
+  margin-top: 20px;
 }
 @media only screen and (max-width: 900px) {
   .LandingPage-Heading {
@@ -208,6 +241,9 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   }
   .modal {
     width: 86% !important;
+  }
+  .img-container {
+    max-height: 350px;
   }
 }
 @media only screen and (min-width: 900px) {
