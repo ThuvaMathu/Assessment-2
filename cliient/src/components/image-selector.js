@@ -7,6 +7,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { Container } from "@mui/system";
 import React, { useState } from "react";
@@ -27,6 +31,12 @@ export default function ImageSelector(props) {
     setDispImg(img);
     setSelectImage(img);
   };
+
+  const [value, setValue] = React.useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -44,8 +54,21 @@ export default function ImageSelector(props) {
         </Box>
 
         <Box sx={{ mt: 3 }} style={{ width: "100%" }}>
+        <Container maxWidth="md" sx={{ textAlign: "center" }}>
+                <p
+                  style={{
+                    fontSize: 18,
+                    fontWeight: "500",
+                    fontFamily: "Helvetica",
+                    textAlign:'center'
+                  }}
+                >
+                  Select Image from Collection
+                </p>
+              </Container>
           <Grid container spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
-            <Grid
+         
+            {/* <Grid
               item
               xs={4}
               sm={8}
@@ -59,6 +82,7 @@ export default function ImageSelector(props) {
                     fontSize: 18,
                     fontWeight: "500",
                     fontFamily: "Helvetica",
+                    textAlign:'center'
                   }}
                 >
                   Select Image from Collection
@@ -99,8 +123,67 @@ export default function ImageSelector(props) {
                   className="common-box-shadow image-size"
                 />
               </Grid>
+            </Grid> */}
+            <TabContext value={value}>
+  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <TabList onChange={handleChange} aria-label="lab API tabs example">
+      <Tab label="Previous Imaege" value="1" />
+      <Tab label="Default Image" value="2" />
+    </TabList>
+  </Box>
+  <TabPanel value="1">
+  <Grid
+              item
+              xs={4}
+              sm={8}
+              md={7}
+              order={{ xs: 2, sm: 2, md: 1 }}
+              sx={{ overflow: "hidden", height: "100%" }}
+            >
+              
+              <Grid container justifyContent="center" className="img-container">
+                {imageArray.map((imgX, index) => (
+                  <Box sx={{ width: 130, padding: 0.2 }}>
+                    <Grid
+                      container
+                      justifyContent="center"
+                      alignItems="center"
+                      sx={{ bgcolor: "lightpink" }}
+                    >
+                      <img
+                        src={imgX}
+                        alt={imgX}
+                        key={index}
+                        style={{ width: "100%" }}
+                        onClick={() => handleSelect(imgX)}
+                      />
+                    </Grid>
+                  </Box>
+                ))}
+              </Grid>
             </Grid>
+  </TabPanel>
+  <TabPanel value="2">
+  <Grid item xs={4} sm={8} md={5} order={{ xs: 1, sm: 1, md: 2 }}>
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+                sx={{ mt: 3, p: 4 }}
+              >
+                <img
+                  src={dispImg}
+                  alt="selected"
+                  className="common-box-shadow image-size"
+                />
+              </Grid>
+            </Grid>
+  </TabPanel>
+  
+</TabContext>
           </Grid>
+          
         </Box>
       </Box>
     </div>
