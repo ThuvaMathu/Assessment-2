@@ -20,7 +20,7 @@ const getImages = async (req, res, next) => {
     .request(options)
     .then(function (response) {
       res.json(response.data);
-      console.log(response.data);
+      //console.log(response.data);
     })
     .catch(function (error) {
       console.error(error);

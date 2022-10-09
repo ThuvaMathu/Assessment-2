@@ -53,7 +53,6 @@ export default function BrowseImage(props) {
       },
       body: JSON.stringify({ reqData: params }),
     };
-
     fetch(`${commonUrl}/searchimage`, options)
       .then((response) => response.json())
       .then((response) => {

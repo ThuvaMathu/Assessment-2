@@ -190,7 +190,6 @@ input[type="datetime-local"] {
   display: none;
 }
 .modal {
-  width: 86% !important;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -240,7 +239,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     display: none !important;
   }
   .modal {
-    width: 86% !important;
+    width: 70% !important;
   }
   .img-container {
     max-height: 350px;

@@ -234,6 +234,7 @@ export default function CreatePage() {
                     alt={"Landing"}
                     style={{ maxWidth: "80%" }}
                   />
+                  k
                 </Grid>
 
                 <Grid

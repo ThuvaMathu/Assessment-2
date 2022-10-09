@@ -1,8 +1,10 @@
 const awsConfig = require("../app");
+
 const getViewCounter = async (req, res) => {
   const s3Key = `visitcount`;
   const bucketName = awsConfig.bucketName;
   const s3 = awsConfig.S3;
+
   const params = { Bucket: bucketName, Key: s3Key };
   try {
     const s3Result = await s3.getObject(params).promise();
