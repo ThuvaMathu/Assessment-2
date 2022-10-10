@@ -12,6 +12,7 @@ import Fade from "@mui/material/Fade";
 import LogiPage from "./login-page";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useProvider } from "../context/provider";
+import Avatar from "./avatar";
 
 const style = {
   position: "absolute",
@@ -25,7 +26,7 @@ const style = {
   p: 1,
 };
 const TopAppBar = () => {
-  const { open, setOpen } = useProvider();
+  const { open, setOpen, isLoggedIn, userData } = useProvider();
   //const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -61,32 +62,36 @@ const TopAppBar = () => {
             />
           </Box>
           {currentLocation !== "/signUp" ? (
-            <Box sx={{ padding: 1 }}>
-              <Button
-                variant="contained"
-                className="LoginOrSign-button"
-                onClick={handleOpen}
-              >
-                <h3 style={{ textTransform: "none" }}>Login/signUp</h3>
-              </Button>
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open}>
-                  <Box sx={style} className="modal">
-                    <LogiPage handleClick={handleClick} />
-                  </Box>
-                </Fade>
-              </Modal>
-            </Box>
+            isLoggedIn !== true ? (
+              <Box sx={{ padding: 1 }}>
+                <Button
+                  variant="contained"
+                  className="LoginOrSign-button"
+                  onClick={handleOpen}
+                >
+                  <h3 style={{ textTransform: "none" }}>Login/signUp</h3>
+                </Button>
+                <Modal
+                  aria-labelledby="transition-modal-title"
+                  aria-describedby="transition-modal-description"
+                  open={open}
+                  onClose={handleClose}
+                  closeAfterTransition
+                  BackdropComponent={Backdrop}
+                  BackdropProps={{
+                    timeout: 500,
+                  }}
+                >
+                  <Fade in={open}>
+                    <Box sx={style} className="modal">
+                      <LogiPage handleClick={handleClick} />
+                    </Box>
+                  </Fade>
+                </Modal>
+              </Box>
+            ) : (
+              <Avatar data={userData.firstname} />
+            )
           ) : (
             <></>
           )}

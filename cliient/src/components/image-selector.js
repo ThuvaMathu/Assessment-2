@@ -15,6 +15,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import onlyLogo from "../assets/only-logo-no-bg.png";
 import { imageArray } from "./images";
 import { useProvider } from "../context/provider";
+import LanguageIcon from "@mui/icons-material/Language";
 
 export default function ImageSelector(props) {
   const { selectImage, setSelectImage } = useProvider();
@@ -90,15 +91,39 @@ export default function ImageSelector(props) {
                 container
                 justifyContent="center"
                 alignItems="center"
+                direction="column"
                 height="100%"
-                sx={{ mt: 3, p: 4 }}
+                sx={{ mt: 3, p: 3 }}
               >
                 <img
                   src={dispImg}
                   alt="selected"
                   className="common-box-shadow image-size"
                 />
+                <Box>
+                  <Button
+                    sx={{ paddingX: "30px", mt: 4 }}
+                    variant="contained"
+                    component="label"
+                    className="LoginOrSign-button"
+                    onClick={() => props.openBrowser()}
+                  >
+                    Search web{" "}
+                    <span style={{ marginLeft: "10px", marginTop: "5px" }}>
+                      <LanguageIcon
+                        sx={{ fontSize: "25px", color: "aliceblue" }}
+                      />
+                    </span>
+                  </Button>
+                </Box>
               </Grid>
+
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                direction="row"
+              ></Grid>
             </Grid>
           </Grid>
         </Box>

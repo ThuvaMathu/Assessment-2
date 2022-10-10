@@ -11,11 +11,14 @@ import React, { useState } from "react";
 import "./style.css";
 import onlyLogo from "../assets/only-logo-no-bg.png";
 import { commonUrl } from "../config";
+import { useProvider } from "../context/provider";
 
 export default function LogiPage(props) {
+  //const { setIsLoggedIn, setUserData } = useProvider();
   const [resData, setResData] = useState(null);
   const [email, setEmail] = useState("");
   const [passKey, setPassKey] = useState("");
+
   const setItem = (params) => {
     const options = {
       method: "POST",
@@ -25,12 +28,19 @@ export default function LogiPage(props) {
       },
       body: JSON.stringify({ email: email, pass: passKey }),
     };
-    fetch(`${commonUrl}/setItem`, options)
+    fetch(`${commonUrl}/login`, options)
       .then((response) => response.json())
       .then((response) => {
-        if (response.status === "ok") {
-          console.log(response, "res");
-          setResData(response.message);
+        if (response.status === 200) {
+          console.log(response, "response");
+          // setUserData(response.data);
+          // setIsLoggedIn(true);
+          localStorage.setItem(
+            "user-session-data",
+            JSON.stringify(response.data)
+          );
+          window.location.reload(false);
+          //setResData(response.message);
         } else {
           setResData(response.message);
           console.log(response, "no data");
@@ -88,6 +98,9 @@ export default function LogiPage(props) {
               />
             </Box>
           </Container>
+          {resData && (
+            <p style={{ fontSize: "14px", color: "red" }}> {resData}</p>
+          )}
           <Box>
             <Button
               variant="contained"
@@ -99,9 +112,7 @@ export default function LogiPage(props) {
               <h3>Login</h3>
             </Button>
           </Box>
-          {resData && (
-            <p style={{ fontSize: "14px", color: "red" }}> {resData}</p>
-          )}
+
           <Box sx={{ marginY: 2 }}>
             <Typography variant="p" fontSize={18}>
               Don't have an account?

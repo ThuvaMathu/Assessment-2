@@ -1,11 +1,25 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Grid, Button } from "@mui/material";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 import landingBg from "../assets/landing-bg.png";
+import { useProvider } from "../context/provider";
+
 export default function LandingPage() {
+  const { setUserData, setIsLoggedIn, isLoggedIn, setOpen } = useProvider();
+  useEffect(() => {
+    let user = localStorage.getItem("user-session-data");
+    let userData = JSON.parse(user);
+    setUserData(userData);
+    if (userData !== null) {
+      if (userData.loginStatus === 200) {
+        setIsLoggedIn(true);
+      }
+      console.log("sample local storage", userData.email);
+    }
+  }, []);
   const history = useNavigate();
   const handleClick = () => {
     history("/create");
@@ -116,18 +130,33 @@ export default function LandingPage() {
                     width="100%"
                     className="hide-on-small"
                   >
-                    <Button
-                      variant="contained"
-                      className="LandingPage-button hide-on-small"
-                      onClick={() => {
-                        handleClick();
-                      }}
-                    >
-                      <span role="img" aria-label="emoji">
-                        🎉
-                      </span>
-                      Create my event
-                    </Button>
+                    {isLoggedIn ? (
+                      <Button
+                        variant="contained"
+                        className="LandingPage-button hide-on-small"
+                        onClick={() => {
+                          handleClick();
+                        }}
+                      >
+                        <span role="img" aria-label="emoji">
+                          🎉
+                        </span>
+                        Create my event
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        className="LandingPage-button hide-on-small"
+                        onClick={() => {
+                          setOpen(true);
+                        }}
+                      >
+                        <span role="img" aria-label="emoji">
+                          🎉
+                        </span>
+                        Login to Create event
+                      </Button>
+                    )}
                   </Grid>
                 </Box>
               </Grid>

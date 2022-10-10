@@ -178,6 +178,21 @@ input[type="datetime-local"] {
   top: 0%;
   right: 0%;
 }
+.list-style {
+  font-size: 8;
+  color: rgb(171, 170, 170);
+}
+.avatar {
+  height: 40px;
+  width: 40px;
+  display: block;
+  text-align: center;
+
+  justify-content: center;
+  align-items: center;
+  background-color: #8456ec;
+  border-radius: 50%;
+}
 /* ---------------------------------------------------- */
 /* ------------------------img selector page-------------- */
 .img-container {
@@ -215,6 +230,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   width: 220px;
   margin-top: 20px;
 }
+/* ----------------------------------edit Img------------------ */
+
+/* --------------------------------------------------- */
+
 @media only screen and (max-width: 900px) {
   .LandingPage-Heading {
     text-align: center;
