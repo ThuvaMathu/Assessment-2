@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { Grid, Button, InputLabel } from "@mui/material";
+import { Grid, Button, InputLabel, Typography } from "@mui/material";
 import "./style.css";
 import img from "../assets/Birthday-cake.png";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,19 @@ export default function CreatePage() {
   const history = useNavigate();
   const handleClose = () => setOpen(false);
   const openBrowser = () => history("/browse");
-
+  useEffect(() => {
+    window.addEventListener("beforeunload", alertUser);
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+    };
+  }, []);
+  const alertUser = (event) => {
+    const e = event || window.event;
+    e.preventDefault();
+    if (e) {
+      e.returnValue = "";
+    }
+  };
   const handleClick = () => {
     history("/event", {
       state: {
@@ -41,12 +53,22 @@ export default function CreatePage() {
     <Box className="createPage">
       <div className="Responsive-Height">
         <Box sx={{ padding: 4 }}>
-          <div className="create-cancel">
+          <Grid container justifyContent="space-between" alignItems="center">
+            <Typography
+              variant="p"
+              sx={{
+                fontSize: { xs: 24, sm: 30, md: 40 },
+                fontFamily: "Helvetica",
+                fontStyle: "normal",
+              }}
+            >
+              Create your event
+            </Typography>
             <Button
               variant="text"
-              className="cancel-btn"
               sx={{
-                fontSize: 26,
+                color: "gray",
+                fontSize: { xs: 18, sm: 24, md: 30 },
                 textTransform: "none",
                 color: "gray",
                 fontWeight: "300",
@@ -55,10 +77,7 @@ export default function CreatePage() {
             >
               Cancel
             </Button>
-          </div>
-          <div className="create-header">
-            <p>Create your event</p>
-          </div>
+          </Grid>
 
           <Grid
             container
@@ -76,12 +95,7 @@ export default function CreatePage() {
               lg={6}
               order={{ xs: 2, sm: 2, md: 1 }}
             >
-              <Grid
-                container
-                direction="column"
-                // justifyContent="center"
-                // alignItems="center"
-              >
+              <Grid container direction="column">
                 <form onSubmit={() => handleClick()}>
                   <InputLabel aria-label="My event is called">
                     <p className="create-label">
@@ -315,6 +329,7 @@ const style = {
   top: "50%",
   left: "50%",
   width: "60%",
+  minHeight: "60%",
   maxHeight: "80%",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",

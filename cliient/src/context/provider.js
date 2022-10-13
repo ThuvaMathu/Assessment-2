@@ -9,6 +9,7 @@ const AppProvider = ({ children }) => {
   const [selectImage, setSelectImage] = useState(null);
   const [rawImage, setRawImage] = useState(null);
   const [userData, setUserData] = useState({});
+  const [refreshTogler, setRefreshTogler] = useState(0);
 
   return (
     <AppContext.Provider
@@ -23,6 +24,8 @@ const AppProvider = ({ children }) => {
         setIsLoggedIn,
         userData,
         setUserData,
+        refreshTogler,
+        setRefreshTogler,
       }}
     >
       {children}

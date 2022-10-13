@@ -129,15 +129,15 @@
 .create-textfield {
   font-family: "Helvetica";
   font-style: normal;
-  padding: 10px;
+  padding: 8px;
   background-color: transparent;
   border: 0px solid;
-  height: 40px;
+  height: 25px;
   width: 98%;
   border-radius: 10px;
   border-color: rgb(236, 236, 236);
   background-color: rgb(236, 236, 236);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: gray;
 }
 .create-textfield:hover,
@@ -231,7 +231,20 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   margin-top: 20px;
 }
 /* ----------------------------------edit Img------------------ */
-
+.outer-con {
+  position: relative;
+  width: 500px;
+}
+.container-absolute {
+  position: absolute;
+  /* top: 50%;
+  right: 50%; 
+  transform: translate(50%, -50%);*/
+  /* height: 200px;
+  width: 200px; */
+  background-color: #41414051;
+  border: 1px solid #ffff;
+}
 /* --------------------------------------------------- */
 
 @media only screen and (max-width: 900px) {

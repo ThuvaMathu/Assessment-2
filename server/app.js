@@ -2,10 +2,13 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const port = 8000;
+const cors = require("cors");
+var bodyParser = require("body-parser");
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 require("dotenv").config();
-app.use(express.json());
 const AWS = require("aws-sdk");
-
+app.use(cors());
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -21,7 +24,7 @@ app.use(function (req, res, next) {
 });
 
 //app.use(express.static("./view"));
-
+app.use("/images", express.static("images"));
 const apisRouter = require("./routes/api_routes");
 const imgRouter = require("./routes/img_routes");
 app.use("/api", apisRouter);
@@ -51,8 +54,9 @@ const dynamodb = new AWS.DynamoDB({ apiVersion: "2012-08-10", ...config });
   } catch (err) {
     if (err.statusCode !== 409) {
       console.log(`Error creating bucket: ${err}`);
+    } else {
+      console.log("Bucket already exists", err);
     }
-    console.log("Bucket already exists");
   }
 })();
 

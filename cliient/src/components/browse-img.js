@@ -135,7 +135,15 @@ export default function BrowseImage(props) {
               <Grid container justifyContent="center" className="img-container">
                 {isloading == false ? (
                   photos.map((imgX, index) => (
-                    <Box sx={{ width: 130, padding: 0.2 }}>
+                    <Box
+                      sx={{
+                        width: 130,
+                        padding: 0.2,
+                        "&:hover": {
+                          transform: "scale(1.1)",
+                        },
+                      }}
+                    >
                       <Grid
                         container
                         justifyContent="center"

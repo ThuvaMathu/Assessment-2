@@ -8,17 +8,32 @@ import img from "../assets/Birthday-cake.png";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
-const fileTypes = ["JPEG", "PNG", "GIF", "JPG", "DOCX"];
+const fileTypes = ["JPEG", "PNG", "GIF", "JPG"];
 
 export default function UploadImg() {
   const { selectImage, setSelectImage, setRawImage } = useProvider();
   const history = useNavigate();
   const [file, setFile] = useState(null);
-  const handleChange = (file) => {
-    setRawImage(file[0]);
-    setSelectImage(URL.createObjectURL(file[0]));
-    setFile(file);
+
+  const handleChange = (fileParam) => {
+    console.log(fileParam);
+    if (fileParam[0].size <= 4194304) {
+      let fileReader = new FileReader();
+      fileReader.readAsDataURL(fileParam[0]);
+      fileReader.onload = (event) => {
+        setRawImage(event.target.result);
+        localStorage.setItem("_editor_img", event.target.result);
+        setSelectImage(event.target.result);
+        setFile(event.target.result);
+      };
+    } else {
+      window.alert(
+        "The file your trying to use is too large! please select a file with size less than 4MB"
+      );
+      window.location.reload();
+    }
   };
+
   return (
     <div>
       <Grid
@@ -27,14 +42,15 @@ export default function UploadImg() {
         alignItems="center"
         direction="column"
       >
-        <h1>Hello To Drag & Drop Files</h1>
+        <h1>Upload or drop a Image right here</h1>
+        <p>File size should be less then 4MB!</p>
         <FileUploader
           multiple={true}
           handleChange={handleChange}
-          name="file"
+          label="Upload or drop a Image right here"
           types={fileTypes}
         />
-        <p>{file ? `File name: ${file[0].name}` : "no files uploaded yet"}</p>
+
         {file && (
           <Box sx={{ p: 4, maxWidth: 300 }}>
             <Grid
@@ -56,7 +72,7 @@ export default function UploadImg() {
                   className="LoginOrSign-button"
                   onClick={() => {
                     history("/edit");
-                    console.log(selectImage, "file");
+                    //console.log(selectImage, "file");
                   }}
                 >
                   Next{" "}

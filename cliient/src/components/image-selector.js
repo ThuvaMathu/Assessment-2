@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Grid,
   IconButton,
   InputLabel,
@@ -9,17 +10,19 @@ import {
 } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { Container } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import onlyLogo from "../assets/only-logo-no-bg.png";
 import { imageArray } from "./images";
 import { useProvider } from "../context/provider";
 import LanguageIcon from "@mui/icons-material/Language";
+import ImageTab from "./image-tab";
 
 export default function ImageSelector(props) {
   const { selectImage, setSelectImage } = useProvider();
   const [dispImg, setDispImg] = useState(imageArray[0]);
+  const [isLoading, setIsLoading] = useState(false);
   function onImageChange(event) {
     setDispImg(URL.createObjectURL(event.target.files[0]));
     setSelectImage(URL.createObjectURL(event.target.files[0]));
@@ -28,6 +31,24 @@ export default function ImageSelector(props) {
     setDispImg(img);
     setSelectImage(img);
   };
+  useEffect(() => {
+    setInterval(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        height="400px"
+      >
+        <CircularProgress size={40} color="secondary" />
+      </Grid>
+    );
+  }
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -54,7 +75,7 @@ export default function ImageSelector(props) {
               order={{ xs: 2, sm: 2, md: 1 }}
               sx={{ overflow: "hidden", height: "100%" }}
             >
-              <Container maxWidth="md" sx={{ textAlign: "center" }}>
+              {/* <Container maxWidth="md" sx={{ textAlign: "center" }}>
                 <p
                   style={{
                     fontSize: 18,
@@ -84,7 +105,8 @@ export default function ImageSelector(props) {
                     </Grid>
                   </Box>
                 ))}
-              </Grid>
+              </Grid> */}
+              <ImageTab setDispImg={setDispImg} />
             </Grid>
             <Grid item xs={4} sm={8} md={5} order={{ xs: 1, sm: 1, md: 2 }}>
               <Grid
