@@ -59,17 +59,17 @@ export default function EditImg() {
   };
   const getBuff = (callFrom) => {
     setDisableReset(false);
-    console.log("user enter none");
+    //console.log("user enter none");
 
     if (callFrom !== lastEdit) {
-      console.log("user enter 1");
-      if (lastEdit == "crop") {
+      //console.log("user enter 1");
+      if (lastEdit === "crop") {
         setLatestBuff(afterCrop);
         return afterCrop;
-      } else if (lastEdit == "rotate") {
+      } else if (lastEdit === "rotate") {
         setLatestBuff(afterRotate);
         return afterRotate;
-      } else if (lastEdit == "modulate") {
+      } else if (lastEdit === "modulate") {
         setLatestBuff(afterModulate);
         return afterModulate;
       } else {
@@ -113,7 +113,7 @@ export default function EditImg() {
 
   const crop = () => {
     const buffer = getBuff("crop");
-    console.log(buffer, "test");
+    //console.log(buffer, "test");
     const options = {
       method: "POST",
       headers: {
