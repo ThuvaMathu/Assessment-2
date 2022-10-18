@@ -23,7 +23,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-//app.use(express.static("./view"));
+app.use(express.static("./view"));
 app.use("/images", express.static("images"));
 const apisRouter = require("./routes/api_routes");
 const imgRouter = require("./routes/img_routes");
@@ -55,15 +55,60 @@ const dynamodb = new AWS.DynamoDB({ apiVersion: "2012-08-10", ...config });
     if (err.statusCode !== 409) {
       console.log(`Error creating bucket: ${err}`);
     } else {
-      console.log("Bucket already exists", err);
+      console.log("Bucket already exists");
     }
   }
 })();
+
+// -----------------------------------------
+// Create the Service interface for dynamoDB
+const ddbTableName = "N10782672-instainvit-DB";
+var params = {
+  AttributeDefinitions: [
+    {
+      AttributeName: "qut-username",
+      AttributeType: "S",
+    },
+    {
+      AttributeName: "email",
+      AttributeType: "S",
+    },
+  ],
+  KeySchema: [
+    {
+      AttributeName: "qut-username",
+      KeyType: "HASH",
+    },
+    {
+      AttributeName: "email",
+      KeyType: "RANGE",
+    },
+  ],
+  ProvisionedThroughput: {
+    ReadCapacityUnits: 5,
+    WriteCapacityUnits: 5,
+  },
+  TableName: ddbTableName,
+};
+
+// Create the table.
+dynamodb.createTable(params, function (err, data) {
+  if (err) {
+    if (err.code === "ResourceInUseException") {
+      console.log("Table already exist");
+    } else {
+      console.log("Error While creating table\n", err);
+    }
+  } else {
+    console.log("Table Created", ddbTableName);
+  }
+});
 
 module.exports.AWS = AWS;
 module.exports.S3 = s3;
 module.exports.dynamodb = dynamodb;
 module.exports.bucketName = bucketName;
+module.exports.ddbTableName = ddbTableName;
 
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, "./view", "index.html"));

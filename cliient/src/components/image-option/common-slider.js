@@ -1,4 +1,4 @@
-import { Box, Button, Slider, Typography } from "@mui/material";
+import { Box, Slider, Typography } from "@mui/material";
 import React from "react";
 
 export default function Commonslider(props) {

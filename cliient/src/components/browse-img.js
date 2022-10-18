@@ -1,33 +1,18 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  IconButton,
-  InputLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { Container } from "@mui/system";
+import { Box, Button, CircularProgress, Grid, IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import ClearIcon from "@mui/icons-material/Clear";
-import onlyLogo from "../assets/only-logo-no-bg.png";
-import { imageArray } from "./images";
 import { useProvider } from "../context/provider";
 import { useNavigate } from "react-router-dom";
 import DoneIcon from "@mui/icons-material/Done";
 import { commonUrl } from "../config";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
-import Divider from "@mui/material/Divider";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import DirectionsIcon from "@mui/icons-material/Directions";
-export default function BrowseImage(props) {
-  const { selectImage, setSelectImage } = useProvider();
-  const [dispImg, setDispImg] = useState(imageArray[0]);
+import img from "../assets/Birthday-cake.png";
+export default function BrowseImage() {
+  const { setSelectImage } = useProvider();
+  const [dispImg, setDispImg] = useState(img);
   const [photos, setPhotos] = useState([]);
   const [isloading, setIsloading] = useState(false);
   const [searchKey, setSearchKey] = useState();
@@ -57,7 +42,7 @@ export default function BrowseImage(props) {
       .then((response) => response.json())
       .then((response) => {
         if (response.total_results > 0) {
-          console.log(response, "res");
+          //console.log(response, "res");
           setPhotos(response.photos);
           setIsloading(false);
         } else {
@@ -133,9 +118,10 @@ export default function BrowseImage(props) {
                 </Box>
               </Grid>
               <Grid container justifyContent="center" className="img-container">
-                {isloading == false ? (
+                {isloading === false ? (
                   photos.map((imgX, index) => (
                     <Box
+                      key={index}
                       sx={{
                         width: 130,
                         padding: 0.2,

@@ -5,8 +5,6 @@ import {
   InputLabel,
   TextField,
   Typography,
-  Input,
-  Divider,
 } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useState } from "react";
@@ -14,8 +12,6 @@ import "./style.css";
 import { useNavigate } from "react-router-dom";
 import { useProvider } from "../context/provider";
 import { commonUrl } from "../config";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 export default function SignUpPage() {
   const { setOpen, setIsLoggedIn, setUserData } = useProvider();
   const [resData, setResData] = useState(null);
@@ -63,7 +59,7 @@ export default function SignUpPage() {
       },
       body: JSON.stringify(bodyData),
     };
-    fetch(`${commonUrl}/setItem`, options)
+    fetch(`${commonUrl}/signup`, options)
       .then((response) => response.json())
       .then((response) => {
         if (response.status === 200) {
@@ -73,7 +69,7 @@ export default function SignUpPage() {
             JSON.stringify(storageData)
           );
           setIsLoggedIn(true);
-
+          setUserData(storageData);
           history("/");
           setResData(response.message);
         } else {

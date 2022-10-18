@@ -1,36 +1,21 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  IconButton,
-  InputLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { Container } from "@mui/system";
+import { Box, Button, CircularProgress, Grid, IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import ClearIcon from "@mui/icons-material/Clear";
-import onlyLogo from "../assets/only-logo-no-bg.png";
-import { imageArray } from "./images";
 import { useProvider } from "../context/provider";
 import LanguageIcon from "@mui/icons-material/Language";
 import ImageTab from "./image-tab";
+import img from "../assets/Birthday-cake.png";
 
 export default function ImageSelector(props) {
-  const { selectImage, setSelectImage } = useProvider();
-  const [dispImg, setDispImg] = useState(imageArray[0]);
+  const { setSelectImage } = useProvider();
+  const [dispImg, setDispImg] = useState(img);
   const [isLoading, setIsLoading] = useState(false);
-  function onImageChange(event) {
-    setDispImg(URL.createObjectURL(event.target.files[0]));
-    setSelectImage(URL.createObjectURL(event.target.files[0]));
-  }
-  const handleSelect = (img) => {
-    setDispImg(img);
-    setSelectImage(img);
-  };
+  // function onImageChange(event) {
+  //   setDispImg(URL.createObjectURL(event.target.files[0]));
+  //   setSelectImage(URL.createObjectURL(event.target.files[0]));
+  // }
+
   useEffect(() => {
     setInterval(() => {
       setIsLoading(false);
@@ -75,37 +60,6 @@ export default function ImageSelector(props) {
               order={{ xs: 2, sm: 2, md: 1 }}
               sx={{ overflow: "hidden", height: "100%" }}
             >
-              {/* <Container maxWidth="md" sx={{ textAlign: "center" }}>
-                <p
-                  style={{
-                    fontSize: 18,
-                    fontWeight: "500",
-                    fontFamily: "Helvetica",
-                  }}
-                >
-                  Select Image from Collection
-                </p>
-              </Container>
-              <Grid container justifyContent="center" className="img-container">
-                {imageArray.map((imgX, index) => (
-                  <Box sx={{ width: 130, padding: 0.2 }}>
-                    <Grid
-                      container
-                      justifyContent="center"
-                      alignItems="center"
-                      sx={{ bgcolor: "lightpink" }}
-                    >
-                      <img
-                        src={imgX}
-                        alt={imgX}
-                        key={index}
-                        style={{ width: "100%" }}
-                        onClick={() => handleSelect(imgX)}
-                      />
-                    </Grid>
-                  </Box>
-                ))}
-              </Grid> */}
               <ImageTab setDispImg={setDispImg} />
             </Grid>
             <Grid item xs={4} sm={8} md={5} order={{ xs: 1, sm: 1, md: 2 }}>
@@ -124,16 +78,31 @@ export default function ImageSelector(props) {
                 />
                 <Box>
                   <Button
-                    sx={{ paddingX: "30px", mt: 4 }}
+                    sx={{ paddingX: "30px", mt: 2 }}
                     variant="contained"
                     component="label"
                     className="LoginOrSign-button"
+                    onClick={() => {
+                      props.handleClose();
+                      setSelectImage(dispImg);
+                    }}
+                  >
+                    Done
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    sx={{ paddingX: "30px", mt: 4, w: 4, height: "60px" }}
+                    variant="contained"
+                    component="label"
+                    color="primary"
+                    //className="LoginOrSign-button"
                     onClick={() => props.openBrowser()}
                   >
                     Search web{" "}
                     <span style={{ marginLeft: "10px", marginTop: "5px" }}>
                       <LanguageIcon
-                        sx={{ fontSize: "25px", color: "aliceblue" }}
+                        sx={{ fontSize: "35px", color: "aliceblue" }}
                       />
                     </span>
                   </Button>

@@ -33,7 +33,7 @@ const TopAppBar = () => {
   const history = useNavigate();
   const location = useLocation();
   let currentLocation = location.pathname;
-  console.log(location.pathname, "current location: ");
+  //console.log(location.pathname, "current location: ");
   const handleClick = () => {
     setOpen(false);
     history("/signUp");
@@ -51,6 +51,7 @@ const TopAppBar = () => {
                 maxWidth: "150px",
               }}
               className="full-logo"
+              onClick={() => history("/")}
             />
             <img
               alt="logo"
@@ -59,6 +60,7 @@ const TopAppBar = () => {
                 maxHeight: "40px",
               }}
               className="half-logo"
+              onClick={() => history("/")}
             />
           </Box>
           {currentLocation !== "/signUp" ? (

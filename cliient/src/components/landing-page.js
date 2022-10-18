@@ -1,29 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import { Grid, Button } from "@mui/material";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
-import landingBg from "../assets/landing-bg.png";
 import { useProvider } from "../context/provider";
+import Carausel from "./carousal/carausel";
 
 export default function LandingPage() {
-  const { setUserData, setIsLoggedIn, isLoggedIn, setOpen } = useProvider();
-  useEffect(() => {
-    let user = localStorage.getItem("user-session-data");
-    let userData = JSON.parse(user);
-    setUserData(userData);
-    if (userData !== null) {
-      if (userData.loginStatus === 200) {
-        setIsLoggedIn(true);
-      }
-      console.log("sample local storage", userData.email);
-    }
-  }, []);
+  const { isLoggedIn, setOpen } = useProvider();
   const history = useNavigate();
   const handleClick = () => {
     history("/create");
   };
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }} className="LandingPage">
@@ -47,12 +37,20 @@ export default function LandingPage() {
               <Grid container justifyContent="center" alignItems="center">
                 <Box sx={{ p: 2 }}>
                   <Grid container justifyContent="center" alignItems="center">
-                    {" "}
+                    {/* {" "}
                     <img
                       src={landingBg}
                       alt={"Landing..."}
-                      style={{ maxWidth: "70%" }}
-                    />
+                      style={{ maxWidth: "60%", opacity: 0.2 }}
+                    /> */}
+                    <Box
+                      style={{
+                        maxWidth: "350px",
+                        maxHeight: "500px",
+                      }}
+                    >
+                      <Carausel />
+                    </Box>
                   </Grid>
                 </Box>
                 <Grid
@@ -93,23 +91,24 @@ export default function LandingPage() {
               >
                 <Box sx={{ p: 2 }}>
                   <div className="LandingPage-Heading">
-                    Imagine if <br />
+                    Create stunning event invitation for
+                    <br />
                     <span aria-label="anima">
                       <TypeAnimation
                         sequence={[
-                          "Snapchat", // Types 'One'
-                          1000, // Waits 1s
-                          "Instragram", // Deletes 'One' and types 'Two'
-                          2000, // Waits 2s
-                          "WhatsApp", // Types 'Three' without deleting 'Two'
-                          3000,
-                          "Messenger",
-                          4000,
-                          "Discord",
-                          5000,
-                          "Group Chats",
-                          6000,
-                          "Twitter",
+                          "Birthday party",
+                          1000,
+                          "Surprice party",
+                          2000,
+                          "Wedding",
+                          500,
+                          "Dinner party",
+                          1000,
+                          "Reception party",
+                          2000,
+                          "Farewell party",
+                          1000,
+                          "Christmas caroling party",
                         ]}
                         wrapper="div"
                         cursor={true}
@@ -117,11 +116,12 @@ export default function LandingPage() {
                         style={{ color: "rgb(230 20 69)" }}
                       />
                     </span>
-                    had events.
+                    to bring people together in easy steps.
                   </div>
                   <p className="LandingPage-Subheading">
-                    Snapchat Easily host and share events with your friends
-                    <br /> across any social media.
+                    With our easy-to-use platform, <br /> you can customise
+                    every detail of your event invitation
+                    <br /> and engage with your invitees.
                   </p>
                   <Grid
                     container
@@ -131,18 +131,20 @@ export default function LandingPage() {
                     className="hide-on-small"
                   >
                     {isLoggedIn ? (
-                      <Button
-                        variant="contained"
-                        className="LandingPage-button hide-on-small"
-                        onClick={() => {
-                          handleClick();
-                        }}
-                      >
-                        <span role="img" aria-label="emoji">
-                          🎉
-                        </span>
-                        Create my event
-                      </Button>
+                      <>
+                        <Button
+                          variant="contained"
+                          className="LandingPage-button hide-on-small"
+                          onClick={() => {
+                            handleClick();
+                          }}
+                        >
+                          <span role="img" aria-label="emoji">
+                            🎉
+                          </span>
+                          Create my event
+                        </Button>
+                      </>
                     ) : (
                       <Button
                         variant="contained"

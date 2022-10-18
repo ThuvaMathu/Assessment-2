@@ -1,18 +1,14 @@
 const express = require("express");
 
-const apiControler = require("../controllers/api_controllers");
 const s3Controller = require("../controllers/s3_controller");
+const ddbController = require("../controllers/ddb_controller");
 
 const router = express.Router();
 
-router.post("/searchimage", apiControler.getImages);
-router.post("/symbol", apiControler.getSymbol);
-router.post("/info", apiControler.getInfo);
-router.post("/price", apiControler.getPrice);
 router.get("/visitcount", s3Controller.getViewCounter);
-router.post("/setItem", s3Controller.setUserData);
-router.post("/login", s3Controller.getUserData);
-
-//router.post("/setItem", ddbController.setData);
-
+router.post("/searchimage", s3Controller.getImages);
+router.post("/getimage", ddbController.getImage);
+router.post("/signup", ddbController.signUp);
+router.post("/signin", ddbController.signIn);
+router.post("/addimage", ddbController.addImage);
 module.exports = router;

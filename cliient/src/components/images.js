@@ -1,39 +1,29 @@
-import image1 from "../assets/card-images/image-1.jpg";
-import image2 from "../assets/card-images/image-2.jpg";
-import image3 from "../assets/card-images/image-3.png";
-import image4 from "../assets/card-images/image-4.jpg";
-import image5 from "../assets/card-images/image-5.jpg";
-import image6 from "../assets/card-images/image-6.png";
-import image7 from "../assets/card-images/image-7.jpg";
-import image8 from "../assets/card-images/image-8.png";
-import image9 from "../assets/card-images/image-9.jpg";
-import image10 from "../assets/card-images/image-10.jpg";
-import image11 from "../assets/card-images/image-11.jpg";
-
-export const images = {
-  image1,
-  image2,
-  image3,
-  image4,
-  image5,
-  image6,
-  image7,
-  image8,
-  image9,
-  image10,
-  image11,
-};
-
-export const imageArray = [
-  image1,
-  image2,
-  image3,
-  image4,
-  image5,
-  image6,
-  image7,
-  image8,
-  image9,
-  image10,
-  image11,
+export const imageURLArray = [
+  "https://m.media-amazon.com/images/I/71r-FDitNoL.jpg",
+  "https://www.seekpng.com/png/detail/137-1375151_birthday-cake-greeting-card-clip-art-birthday-card.png",
+  "https://cdn-icons-png.flaticon.com/256/6851/6851895.png",
+  "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/16275/wedding-bride-groom-clipart-md.png",
+  "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/63285/bride-and-groom-clipart-md.png",
+  "https://www.1800flowers.com/blog/wp-content/uploads/2015/10/red-roses.jpg",
+  "https://www.proflowers.com/blog/wp-content/uploads/2016/01/1-00_Types-of-Flowers_MainHero.png",
+  "https://static.honeykidsasia.com/wp-content/uploads/2019/05/mothers-day-flowers.jpg",
+  "https://thumbs.dreamstime.com/b/cocktail-party-invitation-cocktail-party-invitation-concept-template-hands-friends-alcohol-drinks-making-toast-vector-101171903.jpg",
+  "https://us.123rf.com/450wm/czibo/czibo1206/czibo120600128/14094015-tropical-summer-drinks.jpg",
+  "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/tropical-drink-i-julie-goonan.jpg",
+  "https://i.pinimg.com/736x/ce/ba/86/ceba8671b8ea09ce5670db5d4e549efc.jpg",
+  "https://cdn.shopify.com/s/files/1/0093/6974/7518/products/1068451_272dca85-3f53-4a6b-ada8-225913390e94_620x.jpg",
+  "http://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-Beautiful-nature-landscape.jpg",
+  "https://cdn.pixabay.com/photo/2016/03/08/20/03/flag-1244649_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2014/09/14/18/04/dandelion-445228_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2015/10/09/00/55/lotus-978659_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2013/07/13/10/27/anniversary-157248_960_720.png",
+  "https://cdn.pixabay.com/photo/2020/09/19/08/43/party-hat-5583887_960_720.png",
+  "https://cdn.pixabay.com/photo/2015/07/31/07/35/birthday-868737_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2015/08/04/14/24/birthday-874783_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2014/04/22/02/56/pizza-329523_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2015/02/17/15/33/wedding-cake-639516_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2016/02/20/15/12/happy-birthday-1212168_960_720.jpg",
+  "https://images.pexels.com/photos/158063/bellingrath-gardens-alabama-landscape-scenic-158063.jpeg?auto=compress&cs=tinysrgb&w=1600",
 ];

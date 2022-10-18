@@ -11,15 +11,13 @@ import React, { useState } from "react";
 import "./style.css";
 import onlyLogo from "../assets/only-logo-no-bg.png";
 import { commonUrl } from "../config";
-import { useProvider } from "../context/provider";
 
 export default function LogiPage(props) {
-  //const { setIsLoggedIn, setUserData } = useProvider();
   const [resData, setResData] = useState(null);
   const [email, setEmail] = useState("");
   const [passKey, setPassKey] = useState("");
 
-  const setItem = (params) => {
+  const logInUser = (params) => {
     const options = {
       method: "POST",
       headers: {
@@ -28,13 +26,13 @@ export default function LogiPage(props) {
       },
       body: JSON.stringify({ email: email, pass: passKey }),
     };
-    fetch(`${commonUrl}/login`, options)
+    fetch(`${commonUrl}/signin`, options)
       .then((response) => response.json())
       .then((response) => {
         if (response.status === 200) {
           console.log(response, "response");
-          // setUserData(response.data);
-          // setIsLoggedIn(true);
+          //setUserData(response.data);
+          //setIsLoggedIn(true);
           localStorage.setItem(
             "user-session-data",
             JSON.stringify(response.data)
@@ -106,7 +104,7 @@ export default function LogiPage(props) {
               variant="contained"
               className="Login-button"
               onClick={() => {
-                setItem();
+                logInUser();
               }}
             >
               <h3>Login</h3>

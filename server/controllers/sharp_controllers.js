@@ -7,7 +7,7 @@ const importImg = async (req, res) => {
   try {
     const url = req.protocol + "://" + req.get("host");
     const metadata = await sharp(buffer).metadata();
-    await sharp(buffer)
+    sharp(buffer)
       .resize({ width: 1000 })
       .png()
       .toBuffer(function (err, outputBuffer, info) {
@@ -35,7 +35,6 @@ const filterImg = async (req, res) => {
   const hue = req.body.hue;
   let buffer = Buffer.from(initBuffer, "base64"); //
   try {
-    console.log(brightness, saturation, hue, lightness);
     sharp(buffer)
       .modulate({
         brightness: Number(brightness),
@@ -105,7 +104,6 @@ const rotateImg = async (req, res) => {
   const green = req.body.green;
   const blue = req.body.blue;
   const alpha = req.body.opacity;
-  console.log(red, blue, green, alpha);
   let buffer = Buffer.from(initBuffer, "base64");
   try {
     sharp(buffer)

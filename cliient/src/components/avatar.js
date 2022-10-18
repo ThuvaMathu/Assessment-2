@@ -11,11 +11,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useProvider } from "../context/provider";
+import { useNavigate } from "react-router-dom";
 export default function Avatar(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const { setIsLoggedIn, setUserData } = useProvider();
+  const history = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -25,9 +27,10 @@ export default function Avatar(props) {
     setOpen(false);
   };
   const handleLogOut = () => {
-    setIsLoggedIn(false);
     setUserData({});
     localStorage.removeItem("user-session-data");
+    setIsLoggedIn(false);
+    history("/");
     setOpen(false);
   };
   return (

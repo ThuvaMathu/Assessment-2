@@ -11,17 +11,26 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import ImageSelector from "./image-selector";
 import { useProvider } from "../context/provider";
+import { commonUrl } from "../config";
 export default function CreatePage() {
-  const { selectImage, setSelectImage } = useProvider();
+  const { selectImage } = useProvider();
   const [startDate, setStartDate] = useState("");
   const [open, setOpen] = useState(false);
-  const [endDate, setEndDate] = useState();
-  const [location, setLocation] = useState();
-  const [eventName, setEventName] = useState();
+  const [endDate, setEndDate] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [eventName, setEventName] = useState(null);
+  const [hostName, setHostName] = useState(null);
+  const [discription, setDiscription] = useState(null);
+  const [pageUser, setpageUser] = useState(null);
+
   const history = useNavigate();
   const handleClose = () => setOpen(false);
   const openBrowser = () => history("/browse");
   useEffect(() => {
+    const user = localStorage.getItem("user-session-data");
+    const userData = JSON.parse(user);
+    setHostName(`${userData.firstname} ${userData.lastname} `);
+    setpageUser(userData);
     window.addEventListener("beforeunload", alertUser);
     return () => {
       window.removeEventListener("beforeunload", alertUser);
@@ -35,20 +44,44 @@ export default function CreatePage() {
     }
   };
   const handleClick = () => {
+    addImage();
     history("/event", {
       state: {
         id: 1,
         name: eventName,
+        hostName: hostName,
         eventImage: selectImage,
         eventStartDate: startDate,
         eventEndDate: endDate,
         eventLocation: location,
+        eventDisc: discription,
       },
     });
   };
-  // function onImageChange(event) {
-  //   setSelectImage(URL.createObjectURL(event.target.files[0]));
-  // }
+
+  const addImage = () => {
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: selectImage,
+        email: pageUser.email,
+      }),
+    };
+
+    fetch(`${commonUrl}/addimage`, options)
+      .then((res) => res.json())
+      .then((res) => {
+        //console.log(res);
+        if (res.status === 200) {
+          //console.log(res, "response");
+        }
+      })
+      .catch((err) => console.error(err, "error from client"));
+  };
   return (
     <Box className="createPage">
       <div className="Responsive-Height">
@@ -70,7 +103,6 @@ export default function CreatePage() {
                 color: "gray",
                 fontSize: { xs: 18, sm: 24, md: 30 },
                 textTransform: "none",
-                color: "gray",
                 fontWeight: "300",
               }}
               onClick={() => history("/")}
@@ -111,6 +143,24 @@ export default function CreatePage() {
                     className="create-textfield"
                     onChange={(e) => setEventName(e.target.value)}
                   />
+                  <InputLabel htmlFor="My event is called">
+                    <p className="create-label">
+                      {" "}
+                      <span role="img" aria-label="emoji">
+                        {" "}
+                        👩/👨{" "}
+                      </span>
+                      Hosted by <span className="create-span">(optional)</span>
+                    </p>
+                  </InputLabel>
+                  <input
+                    value={hostName}
+                    required
+                    id="My event is called"
+                    className="create-textfield"
+                    onChange={(e) => setHostName(e.target.value)}
+                  />
+
                   <InputLabel>
                     <p className="create-label">
                       {" "}
@@ -157,18 +207,7 @@ export default function CreatePage() {
                       setLocation(e.target.value);
                     }}
                   />
-                  <InputLabel htmlFor="My event is called">
-                    <p className="create-label">
-                      {" "}
-                      <span role="img" aria-label="emoji">
-                        {" "}
-                        🔗{" "}
-                      </span>
-                      Add a URL link{" "}
-                      <span className="create-span">(optional)</span>
-                    </p>
-                  </InputLabel>
-                  <input id="My event is called" className="create-textfield" />
+
                   <InputLabel htmlFor="My event is called">
                     <p className="create-label">
                       {" "}
@@ -180,7 +219,13 @@ export default function CreatePage() {
                       <span className="create-span">(optional)</span>
                     </p>
                   </InputLabel>
-                  <input id="My event is called" className="create-textfield" />
+                  <input
+                    id="My event is called"
+                    className="create-textfield"
+                    onChange={(e) => {
+                      setDiscription(e.target.value);
+                    }}
+                  />
                   {/* <Box sx={{ padding: 5, height: 300 }}>
                   <img src={image} alt="..." style={{ maxWidth: "100%" }} />
                 </Box> */}
@@ -213,27 +258,6 @@ export default function CreatePage() {
                 height="100%"
                 direction="column"
               >
-                {/* <Box className="add-photo">
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="label"
-                    className="add-photo"
-                    onClick={() => {
-                      setOpen(true);
-                    }}
-                  >
-                     <input
-                      hidden
-                      accept="image/*"
-                      type="file"
-                      onChange={onImageChange}
-                    /> 
-                    <AddAPhotoIcon
-                      sx={{ fontSize: "100px", color: "aliceblue" }}
-                    />
-                  </IconButton>
-                </Box> */}
                 <Grid
                   container
                   justifyContent="center"
@@ -249,40 +273,24 @@ export default function CreatePage() {
                   />
                 </Grid>
 
-                <Grid
-                  container
-                  justifyContent="center"
-                  alignItems="center"
-                  direction="row"
-                >
-                  <Box sx={{ margin: 1 }}>
-                    <Button
-                      sx={{ paddingX: "30px" }}
-                      variant="contained"
-                      component="label"
-                      className="LoginOrSign-button"
-                      onClick={() => history("/upload")}
-                    >
-                      {/* <input
-                        hidden
-                        accept="image/*"
-                        type="file"
-                        // onChange={onImageChange}
-                        onChange={history("/upload")}
-                      />{" "} */}
-                      Upload{" "}
-                      <span style={{ marginLeft: "10px", marginTop: "5px" }}>
-                        <AddAPhotoIcon
-                          sx={{ fontSize: "25px", color: "aliceblue" }}
-                        />
-                      </span>
-                    </Button>
-                  </Box>
-                </Grid>
-
-                <Box sx={{ marginY: 1 }}>
+                <Box sx={{ margin: 2, p: 3 }}>
                   <Button
-                    sx={{ paddingX: "30px" }}
+                    sx={{ margin: 2, width: "100%", height: "50px" }}
+                    variant="contained"
+                    component="label"
+                    className="LoginOrSign-button"
+                    onClick={() => history("/upload")}
+                  >
+                    Upload{" "}
+                    <span style={{ marginLeft: "10px", marginTop: "5px" }}>
+                      <AddAPhotoIcon
+                        sx={{ fontSize: "25px", color: "aliceblue" }}
+                      />
+                    </span>
+                  </Button>
+
+                  <Button
+                    sx={{ margin: 2, width: "100%", height: "50px" }}
                     variant="contained"
                     component="label"
                     className="LoginOrSign-button"
